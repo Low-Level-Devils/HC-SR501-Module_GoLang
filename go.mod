@@ -1,4 +1,4 @@
-module Low-Level-Devils/HC-SR501-Module_GoLang
+module github.com/Low-Level-Devils/HC-SR501-Module_GoLang
 
 go 1.25.0
 

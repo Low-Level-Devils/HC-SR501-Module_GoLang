@@ -2,6 +2,7 @@ package sr501_mod
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/fatih/color"
 	"periph.io/x/conn/v3/gpio"
@@ -41,9 +42,17 @@ func NewSensor(pinName string) (*Sensor, error) {
 }
 
 func (sensor *Sensor) Watch() {
+	lastState := gpio.Low
 	for {
-		if sensor.pin.WaitForEdge(-1) {
-			sensor.Events <- (sensor.pin.Read() == gpio.High)
+		currentState := sensor.pin.Read()
+
+		sensor.Events <- (currentState == gpio.High)
+
+		if currentState != lastState {
+			sensor.Events <- (currentState == gpio.High)
+			lastState = currentState
 		}
+
+		time.Sleep(20 * time.Millisecond)
 	}
 }

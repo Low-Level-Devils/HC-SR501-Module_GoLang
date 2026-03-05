@@ -43,10 +43,9 @@ func NewSensor(pinName string) (*Sensor, error) {
 
 func (sensor *Sensor) Watch() {
 	lastState := gpio.Low
+
 	for {
 		currentState := sensor.pin.Read()
-
-		sensor.Events <- (currentState == gpio.High)
 
 		if currentState != lastState {
 			sensor.Events <- (currentState == gpio.High)

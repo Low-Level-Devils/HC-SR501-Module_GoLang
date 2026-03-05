@@ -34,6 +34,8 @@ func NewSensor(pinName string) (*Sensor, error) {
 		return nil, err
 	}
 
+	color.Cyan("Sensor initialized on pin: %s\nDetails %s", pinName, pin.String())
+
 	return &Sensor{
 		pinName: pinName,
 		pin:     pin,
